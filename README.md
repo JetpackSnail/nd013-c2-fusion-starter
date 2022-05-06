@@ -62,17 +62,29 @@ Also, the project code contains various tasks, which are detailed step-by-step i
 
 
 ## Installation Instructions for Running Locally
-### Cloning the Project
-In order to create a local copy of the project, please click on "Code" and then "Download ZIP". Alternatively, you may of-course use GitHub Desktop or Git Bash for this purpose. 
 
 ### Python
-The project has been written using Python 3.7. Please make sure that your local installation is equal or above this version. 
+
+The project has been written using Python 3.7. Please make sure that your local installation is equal or above this version.
+
+For installing another version of Python locally, you can follow this [link](https://stackoverflow.com/questions/2547554/multiple-python-versions-on-the-same-machine)
 
 ### Package Requirements
+
+Create a virtual environment to install the packages in by using `virtualenv`.
+
+  virtualenv -p /usr/local/bin/python3.7 .env/sensor_fusion
+  source .env/sensor_fusion/bin/activate
+
 All dependencies required for the project have been listed in the file `requirements.txt`. You may either install them one-by-one using pip or you can use the following command to install them all at once: 
-`pip3 install -r requirements.txt` 
+`pip3 install -r requirements.txt`
+
+For installing wxPython on Ubuntu18.04,
+
+`pip3 install -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython`
 
 ### Waymo Open Dataset Reader
+
 The Waymo Open Dataset Reader is a very convenient toolbox that allows you to access sequences from the Waymo Open Dataset without the need of installing all of the heavy-weight dependencies that come along with the official toolbox. The installation instructions can be found in `tools/waymo_reader/README.md`. 
 
 ### Waymo Open Dataset Files
@@ -87,8 +99,8 @@ Once you have done so, please [click here](https://console.cloud.google.com/stor
 
 The sequences listed above can be found in the folder "training". Please download them and put the `tfrecord`-files into the `dataset` folder of this project.
 
-
 ### Pre-Trained Models
+
 The object detection methods used in this project use pre-trained models which have been provided by the original authors. They can be downloaded [here](https://drive.google.com/file/d/1Pqx7sShlqKSGmvshTYbNDcUEYyZwfn3A/view?usp=sharing) (darknet) and [here](https://drive.google.com/file/d/1RcEfUIF1pzDZco8PJkZ10OL-wLL2usEj/view?usp=sharing) (fpn_resnet). Once downloaded, please copy the model files into the paths `/tools/objdet_models/darknet/pretrained` and `/tools/objdet_models/fpn_resnet/pretrained` respectively.
 
 ### Using Pre-Computed Results

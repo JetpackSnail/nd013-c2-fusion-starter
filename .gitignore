@@ -31,4 +31,3 @@ MANIFEST
 dataset/
 .vscode/
 pretrained/
-simple_waymo_open_dataset_reader.egg-info/

@@ -5,7 +5,6 @@ easydict
 torch
 pillow
 matplotlib
-wxpython
 shapely
 tqdm
 open3d

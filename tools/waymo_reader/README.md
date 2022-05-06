@@ -4,10 +4,10 @@ This is a simple file reader for the [Waymo Open Dataset](https://waymo.com/open
 
 ## Installation
 
-Use the provided `setup.py`:
+Use the provided `setup.py` in the virtual environment:
 
 ```
-python setup.py install
+python3 setup.py install
 ```
 
 ## Usage
