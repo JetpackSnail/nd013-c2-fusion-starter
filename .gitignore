@@ -31,3 +31,6 @@ MANIFEST
 dataset/
 .vscode/
 pretrained/
+
+#
+*.pkl
