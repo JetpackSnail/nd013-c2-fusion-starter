@@ -143,3 +143,140 @@ Parts of this project are based on the following repositories:
 
 ## License
 [License](LICENSE.md)
+
+
+## Submission writeup
+
+### Section 1 : Compute Lidar Point-Cloud from Range Image
+
+This repository will showcase the steps taken to do 3D object detection on LIDAR data on he Waymo dataset.
+
+#### 1.1: Visualize range image channels
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [0, 1]
+exec_detection = []
+exec_tracking = []
+exec_visualization = ['show_range_image']
+```
+
+In this section, the range and intensity image is extracted from the LIDAR data and visualised as an OpenCV matrix.
+
+<img src="img/img_range_intensity.jpg"/>
+
+#### 1.2: Visualize lidar point-cloud
+
+```
+data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord
+show_only_frames = [0, 200]
+exec_detection = []
+exec_tracking = []
+exec_visualization = ['show_pcl']
+```
+
+<img src="img/ptcloud.jpg"/>
+
+<img src="img/ptcloud2.jpg"/>
+
+Stable features of the car include the bumper and the wheels.
+
+
+### Section 2 : Create Birds-Eye View from Lidar PCL
+
+In this section, we will transform point cloud to bird's eye view (BEV)
+
+#### 2.1: Convert sensor coordinates to BEV-map coordinates
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [0, 1]
+exec_detection = ['bev_from_pcl']
+exec_tracking = []
+exec_visualization = []
+```
+
+<img src="img/bev_ptcloud.jpg"/>
+
+#### 2.2: Compute intensity layer of the BEV map
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [0, 1]
+exec_detection = ['bev_from_pcl']
+exec_tracking = []
+exec_visualization = []
+```
+
+<img src="img/img_intensity.jpg"/>
+
+#### 2.3: Compute height layer of the BEV map
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [0, 1]
+exec_detection = ['bev_from_pcl']
+exec_tracking = []
+exec_visualization = []
+```
+
+<img src="img/img_height.jpg"/>
+
+### Section 3 : Model-based Object Detection in BEV Image
+
+#### 3.1: Add a second model from a GitHub repo
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [50, 51]
+exec_detection = ['bev_from_pcl', 'detect_objects']
+exec_tracking = []
+exec_visualization = ['show_objects_in_bev_labels_in_camera']
+configs_det = det.load_configs(model_name="fpn_resnet")
+```
+
+#### 3.2 Extract 3D bounding boxes from model response
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [50, 51]
+exec_detection = ['bev_from_pcl', 'detect_objects']
+exec_tracking = []
+exec_visualization = ['show_objects_in_bev_labels_in_camera']
+configs_det = det.load_configs(model_name="fpn_resnet")
+```
+
+### Section 4 : Performance Evaluation for Object Detection
+
+#### 4.1: Compute intersection-over-union between labels and detections
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [50, 51]
+exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
+exec_tracking = []
+exec_visualization = ['show_detection_performance']
+configs_det = det.load_configs(model_name="darknet")
+```
+
+#### 4.2: Compute intersection-over-union between labels and detections
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [50, 51]
+exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
+exec_tracking = []
+exec_visualization = ['show_detection_performance']
+configs_det = det.load_configs(model_name="darknet")
+```
+
+#### 4.3: Compute intersection-over-union between labels and detections
+
+```
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord
+show_only_frames = [50, 150]
+exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
+exec_tracking = []
+exec_visualization = ['show_detection_performance']
+configs_det = det.load_configs(model_name="darknet")
+```
