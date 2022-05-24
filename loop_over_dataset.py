@@ -50,11 +50,11 @@ import misc.params as params
 # exec_visualization: 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev',
 #                     'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
 data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord'
-show_only_frames = [0, 1]
+show_only_frames = [50, 51]
 
-exec_detection = ['bev_from_pcl']
+exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
 exec_tracking = []
-exec_visualization = []
+exec_visualization = ['show_detection_performance']
 
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
 vis_pause_time = 0 # set pause time between frames in ms (0 = stop between frames until key is pressed)
@@ -177,7 +177,6 @@ while True:
                 det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)   
 
         det_performance_all.append(det_performance) # store all evaluation results in a list for performance assessment at the end
-        
 
         ## Visualization for object detection
         if 'show_range_image' in exec_list:

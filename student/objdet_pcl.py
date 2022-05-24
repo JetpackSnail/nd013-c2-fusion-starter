@@ -118,9 +118,9 @@ def bev_from_pcl(lidar_pcl, configs):
     ## step 5 : temporarily visualize the intensity map using OpenCV to make sure that vehicles separate well from the background
     img_intensity = intensity_map * 255
     img_intensity = img_intensity.astype(np.uint8)
-    cv2.imshow('img_intensity', img_intensity)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('img_intensity', img_intensity)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     # Compute height layer of the BEV map
     ## step 1 : create a numpy array filled with zeros which has the same dimensions as the BEV map
@@ -134,9 +134,9 @@ def bev_from_pcl(lidar_pcl, configs):
     ## step 3 : temporarily visualize the intensity map using OpenCV to make sure that vehicles separate well from the background
     img_height = height_map * 255
     img_height = img_height.astype(np.uint8)
-    cv2.imshow('height_map', img_height)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('height_map', img_height)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
 
     # Compute density layer of the BEV map

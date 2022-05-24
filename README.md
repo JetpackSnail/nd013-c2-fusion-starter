@@ -246,6 +246,8 @@ exec_visualization = ['show_objects_in_bev_labels_in_camera']
 configs_det = det.load_configs(model_name="fpn_resnet")
 ```
 
+<img src="img/detection.jpg"/>
+
 ### Section 4 : Performance Evaluation for Object Detection
 
 #### 4.1: Compute intersection-over-union between labels and detections
@@ -280,3 +282,5 @@ exec_tracking = []
 exec_visualization = ['show_detection_performance']
 configs_det = det.load_configs(model_name="darknet")
 ```
+
+<img src="img/plots.png"/>
