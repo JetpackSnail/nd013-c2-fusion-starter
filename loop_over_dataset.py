@@ -49,12 +49,12 @@ import misc.params as params
 # exec_tracking: 'perform_tracking'
 # exec_visualization: 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev',
 #                     'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
-data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord'
-show_only_frames = [50, 51]
+data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord'
+show_only_frames = [150, 200]
 
-exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
-exec_tracking = []
-exec_visualization = ['show_detection_performance']
+exec_detection = []
+exec_tracking = ['perform_tracking']
+exec_visualization = ['show_tracks']
 
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
 vis_pause_time = 0 # set pause time between frames in ms (0 = stop between frames until key is pressed)
@@ -66,13 +66,13 @@ datafile = WaymoDataFileReader(data_fullpath)
 datafile_iter = iter(datafile)  # initialize dataset iterator
 
 ## Initialize object detection
-configs_det = det.load_configs(model_name='darknet') # options are 'darknet', 'fpn_resnet'
+configs_det = det.load_configs(model_name='fpn_resnet') # options are 'darknet', 'fpn_resnet'
 model_det = det.create_model(configs_det)
 
 configs_det.use_labels_as_objects = False # True = use groundtruth labels as objects, False = use model-based detection
 
 ## Uncomment this setting to restrict the y-range in the final project
-# configs_det.lim_y = [-25, 25] 
+configs_det.lim_y = [-5, 10]
 
 ## Initialize tracking
 KF = Filter() # set up Kalman filter 
