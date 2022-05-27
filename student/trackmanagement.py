@@ -87,13 +87,6 @@ class Trackmanagement:
         self.result_list = []
         
     def manage_tracks(self, unassigned_tracks, unassigned_meas, meas_list):
-        ############
-        # TODO Step 2: implement track management:
-        # - decrease the track score for unassigned tracks
-        # - delete tracks if the score is too low or P is too big (check params.py for parameters that might be helpful, but
-        # feel free to define your own parameters)
-        ############
-        
         # decrease score for unassigned tracks
         for i in unassigned_tracks:
             track = self.track_list[i]
