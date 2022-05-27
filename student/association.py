@@ -69,20 +69,19 @@ class Association:
 
         return update_track, update_meas     
 
-    def gating(self, MHD, sensor): 
-        if MHD < params.gating_threshold:
+    def gating(self, MHD, sensor):
+        limit = chi2.ppf(params.gating_threshold, df=sensor.dim_meas)
+        if MHD < limit:
             return True
         else:
             return False
  
     def MHD(self, track, meas):
         z = np.matrix(meas.z)
-        hx = meas.sensor.get_hx(track.x)
-        y = z - hx
-
-        S = hx.transpose() * track.P[:3, :3] * hx + meas.R
-
-        MHD = y.T * S.I * y
+        z_pred = meas.sensor.get_hx(track.x)
+        hx = z - z_pred 
+        S = meas.R
+        MHD = hx.T * S.I * hx
 
         return MHD
 
