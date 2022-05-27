@@ -129,6 +129,6 @@ class Association:
             
         # run track management 
         manager.manage_tracks(self.unassigned_tracks, self.unassigned_meas, meas_list)
-        
+
         for track in manager.track_list:            
             print('track', track.id, 'score =', track.score)

@@ -50,7 +50,7 @@ import misc.params as params
 # exec_visualization: 'show_range_image', 'show_bev', 'show_pcl', 'show_labels_in_image', 'show_objects_and_labels_in_bev',
 #                     'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
 data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord'
-show_only_frames = [150, 200]
+show_only_frames = [65, 100]
 
 exec_detection = []
 exec_tracking = ['perform_tracking']
@@ -72,7 +72,7 @@ model_det = det.create_model(configs_det)
 configs_det.use_labels_as_objects = False # True = use groundtruth labels as objects, False = use model-based detection
 
 ## Uncomment this setting to restrict the y-range in the final project
-configs_det.lim_y = [-5, 10]
+configs_det.lim_y = [-5, 15]
 
 ## Initialize tracking
 KF = Filter() # set up Kalman filter 
