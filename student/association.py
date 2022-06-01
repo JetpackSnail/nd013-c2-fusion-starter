@@ -42,9 +42,9 @@ class Association:
             track = track_list[i]
             for j in range(M):
                 meas = meas_list[j]
-                dist = self.MHD(track, meas)
+                dist = self.MHD(track, meas, KF)
 
-                if self.gating(MHD=dist, sensor=meas.sensor):
+                if self.gating(MHD=dist):
                     self.association_matrix[i,j] = dist
 
         self.unassigned_tracks = np.arange(len(track_list)).tolist()
@@ -53,7 +53,7 @@ class Association:
         return
 
     def get_closest_track_and_meas(self):
-        if self.association_matrix.min == np.inf:
+        if np.min(self.association_matrix) == np.inf:
             return np.nan, np.nan
 
         min_row, min_col = np.unravel_index(np.argmin(self.association_matrix, axis=None), self.association_matrix.shape)
@@ -69,19 +69,18 @@ class Association:
 
         return update_track, update_meas     
 
-    def gating(self, MHD, sensor):
-        limit = chi2.ppf(params.gating_threshold, df=sensor.dim_meas)
+    def gating(self, MHD):
+        limit = chi2.ppf(params.gating_threshold, df=params.dim_state)
         if MHD < limit:
             return True
         else:
             return False
  
-    def MHD(self, track, meas):
-        z = np.matrix(meas.z)
-        z_pred = meas.sensor.get_hx(track.x)
-        hx = z - z_pred 
-        S = meas.R
-        MHD = hx.T * S.I * hx
+    def MHD(self, track, meas, KF):
+        H = meas.sensor.get_H(track.x)
+        gamma = KF.gamma(track, meas)
+        S = KF.S(track, meas, H)
+        MHD = gamma.transpose() * S.I * gamma 
 
         return MHD
 

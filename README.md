@@ -73,8 +73,8 @@ For installing another version of Python locally, you can follow this [link](htt
 
 Create a virtual environment to install the packages in by using `virtualenv`.
 
-  virtualenv -p /usr/local/bin/python3.7 .env/sensor_fusion
-  source .env/sensor_fusion/bin/activate
+    virtualenv -p /usr/local/bin/python3.7 .env/sensor_fusion
+    source .env/sensor_fusion/bin/activate
 
 All dependencies required for the project have been listed in the file `requirements.txt`. You may either install them one-by-one using pip or you can use the following command to install them all at once: 
 `pip3 install -r requirements.txt`

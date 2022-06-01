@@ -54,7 +54,7 @@ show_only_frames = [0, 200]
 
 exec_detection = []
 exec_tracking = ['perform_tracking']
-exec_visualization = ['show_tracks']
+exec_visualization = ['show_tracks', 'make_tracking_movie']
 
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
 vis_pause_time = 0 # set pause time between frames in ms (0 = stop between frames until key is pressed)
