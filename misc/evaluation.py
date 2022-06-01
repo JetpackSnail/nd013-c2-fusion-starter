@@ -232,15 +232,18 @@ def plot_rmse(manager, all_labels, configs_det):
 def make_movie(path):
     # read track plots
     images = [img for img in sorted(os.listdir(path)) if img.endswith(".png")]
-    frame = cv2.imread(os.path.join(path, images[0]))
-    height, width, layers = frame.shape
+    frame = cv2.imread(os.path.join(path, images[1]))
+
+    dims = (int(frame.shape[1] * 0.3), int(frame.shape[0] * 0.3))
 
     # save with 10fps to result dir
-    video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.avi'), 0, 10, (width,height))
+    video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.avi'), 0, 10, dims)
 
     for image in images:
         fname = os.path.join(path, image)
-        video.write(cv2.imread(fname))
+        frame = cv2.imread(fname)
+        resized = cv2.resize(frame, dims, interpolation=cv2.INTER_AREA)
+        video.write(resized)
         os.remove(fname) # clean up
 
     cv2.destroyAllWindows()
