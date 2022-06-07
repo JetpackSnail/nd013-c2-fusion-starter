@@ -291,13 +291,19 @@ configs_det = det.load_configs(model_name="darknet")
 
 <img src="img/kalman_rms_plot_1.png"/>
 
+In this section, we implement a 6 dimensional constant velocity process matrix. The EKF is able to track a single detected vehicle with lidar with a RMS lesser than 0.35. The above plot shows that the vehicle is tracked over time with the EKF.
+
 #### 2) Track Management
 
 <img src="img/kalman_rms_plot_2.png"/>
 
+In this section, we implement a track manager and the corresponding tracks for a single detection. A new track is created with an initial score when there is an uninitialised measurement. This track is added to the track manager which handles the tracking state and removal of track when the track score is below a certain set threshold. 
+
 #### 3) Data Association
 
 <img src="img/kalman_rms_plot_3.png"/>
+
+In this section, we use the nearest neighbour association to associate subsequent measurements to each other. The aoosication metric used is the Mahalanobis distance. With this, we can do tracking of multiple detections and persists over multiple frames of measurements.
 
 #### 4) Sensor Fusion
 
@@ -305,19 +311,4 @@ configs_det = det.load_configs(model_name="darknet")
 
 <img src="results/my_tracking_results.gif"/>
 
-
-# Writeup: Track 3D-Objects Over Time
-
-Please use this starter template to answer the following questions:
-
-### 1. Write a short recap of the four tracking steps and what you implemented there (filter, track management, association, camera fusion). Which results did you achieve? Which part of the project was most difficult for you to complete, and why?
-
-
-### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
-
-
-### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
-
-
-### 4. Can you think of ways to improve your tracking results in the future?
-
+In this section, we fuse camera measurements with lidar to obtain a more accurate track score compared to the previous section. To further improve on the scores, we can use a better data association metric than nearest neighbour assocaition or use better sensors than we can have more confidence in. 
