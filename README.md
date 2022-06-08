@@ -285,30 +285,46 @@ configs_det = det.load_configs(model_name="darknet")
 
 <img src="img/plots.png"/>
 
-### Sensor fusion
+## Sensor fusion
 
-#### 1) Tracking
+### 1) Recap on the 4 fusion steps
+
+#### a) Tracking
 
 <img src="img/kalman_rms_plot_1.png"/>
 
 In this section, we implement a 6 dimensional constant velocity process matrix. The EKF is able to track a single detected vehicle with lidar with a RMS lesser than 0.35. The above plot shows that the vehicle is tracked over time with the EKF.
 
-#### 2) Track Management
+#### b) Track Management
 
 <img src="img/kalman_rms_plot_2.png"/>
 
 In this section, we implement a track manager and the corresponding tracks for a single detection. A new track is created with an initial score when there is an uninitialised measurement. This track is added to the track manager which handles the tracking state and removal of track when the track score is below a certain set threshold. 
 
-#### 3) Data Association
+#### c) Data Association
 
 <img src="img/kalman_rms_plot_3.png"/>
 
 In this section, we use the nearest neighbour association to associate subsequent measurements to each other. The aoosication metric used is the Mahalanobis distance. With this, we can do tracking of multiple detections and persists over multiple frames of measurements.
 
-#### 4) Sensor Fusion
+#### d) Sensor Fusion
 
 <img src="img/kalman_rms_plot_4.png"/>
 
 <img src="results/my_tracking_results.gif"/>
 
-In this section, we fuse camera measurements with lidar to obtain a more accurate track score compared to the previous section. To further improve on the scores, we can use a better data association metric than nearest neighbour assocaition or use better sensors than we can have more confidence in. 
+In this section, we fuse camera measurements with lidar to obtain a more accurate track score compared to the previous section. 
+
+Overall, data association was the most difficult as it handles the bulk of the EKF track management. From dropping and adding tracks based on their respective scores to associating each current measurement with the previous, there are many moving parts that could be further tuned to each individual setup.
+
+### 2) Benefits to camera-lidar fusion compared to lidar-only
+
+Comparing the 4th step (sensor fusion) to the 3rd step(data association), the tracks have a lower RMS error in step 4. In this small sample study, we can see that camera-lidar fusion achieved a better performance compared to lidar-only. 
+
+### 3) Challenges in a real-life scenario
+
+In a real-life scenario, vehicles do not obey a strict constant velocity model that we have assumed in this study. Also, constant occlusions and lane cutting by other vehicles may obstruct that affect the track scores and detections.
+
+### 4) Future improvements
+
+To further improve on the scores, we can use a better data association metric than nearest neighbour assocaition or use better sensors than we can have more confidence in. 
